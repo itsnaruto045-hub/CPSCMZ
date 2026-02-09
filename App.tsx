@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { 
   Users, 
@@ -368,4 +369,121 @@ const Rules: React.FC = () => {
                 {rules.map((rule, i) => (
                   <div key={i} className="flex gap-4">
                     <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-xs font-bold text-gray-400 border border-white/10">
-                     
+                      0{i + 1}
+                    </div>
+                    <div>
+                      <h6 className="font-bold text-white mb-1">{rule.title}</h6>
+                      <p className="text-gray-500 text-sm">{rule.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="w-full md:w-64 flex-shrink-0 flex flex-col items-center justify-center p-8 bg-black/40 rounded-2xl border border-white/5">
+              <img src={LOGO_URL} alt="Logo Small" className="w-20 h-20 rounded-2xl mb-6 shadow-xl object-cover" />
+              <div className="text-center mb-6">
+                <p className="text-xs uppercase tracking-widest text-gray-500 font-bold mb-1">Server Safety</p>
+                <div className="text-green-400 font-bold flex items-center gap-2 justify-center">
+                  <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+                  Protected
+                </div>
+              </div>
+              <a href={INVITE_LINK} className="w-full py-3 rounded-xl discord-gradient text-white font-bold text-sm text-center shadow-lg shadow-indigo-600/20">
+                Read Full Rules
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const Footer: React.FC = () => {
+  return (
+    <footer className="bg-[#0a0c14] pt-20 pb-10 border-t border-white/5">
+      <div className="container mx-auto px-6">
+        <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-8">
+          <div className="text-center md:text-left">
+            <div className="flex items-center justify-center md:justify-start gap-3 mb-4">
+              <img src={LOGO_URL} alt="Footer Logo" className="w-8 h-8 rounded-lg object-cover" />
+              <span className="font-jakarta font-bold text-xl">{SERVER_NAME}</span>
+            </div>
+            <p className="text-gray-500 text-sm max-w-xs">
+              Empowering students through community and collaboration since 2024.
+            </p>
+          </div>
+          
+          <div className="flex gap-8 text-sm text-gray-400">
+            <a href="#about" className="hover:text-white transition-colors">About</a>
+            <a href="#guide" className="hover:text-white transition-colors">Join Guide</a>
+            <a href="#features" className="hover:text-white transition-colors">Features</a>
+            <a href={INVITE_LINK} className="hover:text-white transition-colors">Discord</a>
+          </div>
+
+          <div className="flex flex-col items-center md:items-end gap-3">
+            <a href={INVITE_LINK} target="_blank" rel="noopener noreferrer" className="px-6 py-2.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 font-bold text-sm hover:bg-indigo-500/20 transition-all flex items-center gap-2">
+              Join Server
+              <ArrowRight className="w-4 h-4" />
+            </a>
+            <p className="text-[10px] text-gray-600 uppercase tracking-widest">Est. 2024 • Academic Excellence</p>
+          </div>
+        </div>
+
+        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-gray-600 text-xs">
+            © 2024 {SERVER_NAME}. Not affiliated with Discord Inc.
+          </p>
+          <div className="flex items-center gap-2 text-gray-600 text-[10px] font-bold uppercase tracking-tighter">
+            <span>Built with Love</span>
+            <span className="w-1 h-1 rounded-full bg-gray-700"></span>
+            <span>For the Community</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+const ScrollToTop: React.FC = () => {
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setShow(window.scrollY > 400);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const goToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  return (
+    <AnimatePresence>
+      {show && (
+        <motion.button
+          initial={{ opacity: 0, scale: 0.5, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.5, y: 20 }}
+          onClick={goToTop}
+          className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-indigo-600 text-white flex items-center justify-center shadow-xl shadow-indigo-600/40 hover:bg-indigo-500 hover:-translate-y-1 transition-all"
+        >
+          <ChevronDown className="w-6 h-6 rotate-180" />
+        </motion.button>
+      )}
+    </AnimatePresence>
+  );
+}
+
+export default function App() {
+  return (
+    <div className="min-h-screen selection:bg-indigo-500/30 selection:text-indigo-200">
+      <Navbar />
+      <Hero />
+      <About />
+      <JoinGuide />
+      <Features />
+      <Rules />
+      <Footer />
+      <ScrollToTop />
+    </div>
+  );
+}
